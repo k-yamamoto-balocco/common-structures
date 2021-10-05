@@ -1,0 +1,26 @@
+Escaped mutants:
+================
+
+1) /home/vagrant/package/packages/commons-structures/src/Stackable2dArray.php:59    [M] Foreach_
+
+--- Original
++++ New
+@@ @@
+      */
+     public function getIterator()
+     {
+-        foreach ($this->data as $key => $item) {
++        foreach (array() as $key => $item) {
+             (yield $key > $item->toArray());
+         }
+     }
+
+
+Timed Out mutants:
+==================
+
+Skipped mutants:
+================
+
+Not Covered mutants:
+====================
