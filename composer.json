@@ -7,7 +7,8 @@
         }
     ],
     "require": {
-        "php": ">=7.1"
+        "php": ">=7.4",
+        "respect/validation": "^2.2"
     },
     "autoload": {
         "psr-4": {
@@ -35,7 +36,7 @@
         "syntax": "vendor/bin/parallel-lint ./src ./tests --exclude ./vendor",
         "phpunit": "phpdbg -qrr vendor/bin/phpunit --coverage-html qa/coverage",
         "infection": "vendor/bin/infection",
-        "psalm": "phpdbg -qrr vendor/bin/psalm --show-info=true",
+        "psalm": "phpdbg -qrr vendor/bin/psalm --show-info=false",
         "phpcs": "phpdbg -qrr vendor/bin/phpcs  ./src --extensions=php --tab-width=4 -sp --standard=./ruleset.xml",
         "phpcbf": "phpdbg -qrr vendor/bin/phpcbf ./src --extensions=php --tab-width=4 -sp --standard=./ruleset.xml",
         "pdpend": "vendor/bin/pdepend --summary-xml=/tmp/summary.xml --jdepend-chart=./qa/pdpend/jdepend.svg --overview-pyramid=./qa/pdpend/pyramid.svg ./src",
@@ -47,5 +48,11 @@
             "composer phpunit",
             "composer infection"
         ]
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "infection/extension-installer": true
+        }
     }
 }
