@@ -21,43 +21,19 @@
  * © Balocco Inc. All Rights Reserved.
  */
 
-namespace GitBalocco\CommonStructures\Value\Primitive;
+namespace GitBalocco\CommonStructures\Collection\Primitive;
 
-use GitBalocco\CommonStructures\Value\Validator\Primitive\CallbackValueValidator;
-use GitBalocco\CommonStructures\Value\Value;
-use GitBalocco\CommonStructures\Value\ValueInterface;
+use GitBalocco\CommonStructures\Collection\AbstractValueCollection;
+use GitBalocco\CommonStructures\Collection\ValueCollectionInterface;
+use GitBalocco\CommonStructures\Value\Primitive\StringValue;
 
 /**
- * CallbackValue
- * @method callable getValue()
- * @package GitBalocco\CommonStructures\Value\Primitive
+ * @method string[] toArray()
  */
-class CallbackValue extends Value implements ValueInterface
+class StringValueCollection extends AbstractValueCollection implements ValueCollectionInterface
 {
-    private array $arguments = [];
-
-    protected static function validatorClassName(): string
+    protected static function valueClass(): string
     {
-        return CallbackValueValidator::class;
-    }
-
-    /**
-     * __invoke
-     *
-     * @psalm-suppress MissingParamType
-     * @return false|mixed
-     * @author kenji yamamoto <k.yamamoto@balocco.info>
-     */
-    public function __invoke()
-    {
-        return call_user_func_array($this->getValue(), $this->arguments);
-    }
-
-    /**
-     * @param array $arguments
-     */
-    public function setArguments(array $arguments): void
-    {
-        $this->arguments = $arguments;
+        return StringValue::class;
     }
 }

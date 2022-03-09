@@ -64,6 +64,13 @@ class CallbackValueTest extends TestCase
         }
     }
 
+    public function test__invoke_with_argument(){
+        $callback = new CallbackValue('strpos');
+        $callback->setArguments(['string_haystack', 'ng', 0]);
+        $result = $callback->__invoke();
+        $this->assertSame(strpos('string_haystack', 'ng', 0),$result);
+    }
+
     protected function dataProviderNormalCase(): array
     {
         $object = new ClassForCallableTestCase();
