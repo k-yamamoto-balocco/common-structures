@@ -21,24 +21,20 @@
  * © Balocco Inc. All Rights Reserved.
  */
 
-namespace GitBalocco\CommonStructures\Value\Primitive;
+namespace GitBalocco\CommonStructures\Collection\Exception;
 
-use GitBalocco\CommonStructures\Value\PrimitiveValueInterface;
-use GitBalocco\CommonStructures\Value\Validator\Primitive\BoolValueValidator;
-use GitBalocco\CommonStructures\Value\Value;
+use LogicException;
 
-/**
- * @method bool getValue()
- */
-class BoolValue extends Value implements PrimitiveValueInterface
+class NotPrimitiveValueException extends LogicException
 {
-    protected static function validatorClassName(): string
-    {
-        return BoolValueValidator::class;
+    public function __construct(
+        string $className,
+        string $message = "",
+        int $code = 0,
+        ?Throwable $previous = null
+    ) {
+        $message = $className . ' is not implement PrimitiveValueInterface. ' . $message;
+        parent::__construct($message, $code, $previous);
     }
 
-    public function is(): bool
-    {
-        return $this->getValue();
-    }
 }

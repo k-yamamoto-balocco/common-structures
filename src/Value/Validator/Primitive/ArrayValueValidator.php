@@ -21,24 +21,20 @@
  * © Balocco Inc. All Rights Reserved.
  */
 
-namespace GitBalocco\CommonStructures\Value\Primitive;
+namespace GitBalocco\CommonStructures\Value\Validator\Primitive;
 
-use GitBalocco\CommonStructures\Value\PrimitiveValueInterface;
-use GitBalocco\CommonStructures\Value\Validator\Primitive\BoolValueValidator;
-use GitBalocco\CommonStructures\Value\Value;
+use GitBalocco\CommonStructures\Value\Validator\AbstractValueValidator;
+use GitBalocco\CommonStructures\Value\Validator\ValueValidatorInterface;
 
-/**
- * @method bool getValue()
- */
-class BoolValue extends Value implements PrimitiveValueInterface
+class ArrayValueValidator extends AbstractValueValidator implements ValueValidatorInterface
 {
-    protected static function validatorClassName(): string
+    public function __invoke(): bool
     {
-        return BoolValueValidator::class;
+        if (!is_array($this->getValueCandidate())) {
+            $this->setMessage('$valueCandidate is not array.');
+            return false;
+        }
+        return true;
     }
 
-    public function is(): bool
-    {
-        return $this->getValue();
-    }
 }

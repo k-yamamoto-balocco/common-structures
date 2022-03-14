@@ -21,24 +21,21 @@
  * © Balocco Inc. All Rights Reserved.
  */
 
-namespace GitBalocco\CommonStructures\Value\Primitive;
+namespace GitBalocco\CommonStructures\Value\Validator;
 
-use GitBalocco\CommonStructures\Value\PrimitiveValueInterface;
-use GitBalocco\CommonStructures\Value\Validator\Primitive\BoolValueValidator;
-use GitBalocco\CommonStructures\Value\Value;
+use Respect\Validation\Validatable;
+use Respect\Validation\Validator;
 
 /**
- * @method bool getValue()
+ * KeyValidator
+ *
+ * @package GitBalocco\CommonStructures\Value\Validator
  */
-class BoolValue extends Value implements PrimitiveValueInterface
+class KeyValidator extends RespectValidatorBaseClass implements ValueValidatorInterface
 {
-    protected static function validatorClassName(): string
+    protected function getRespectValidator(): Validatable
     {
-        return BoolValueValidator::class;
+        return Validator::notEmpty()->oneOf(Validator::intType(),Validator::stringType());
     }
 
-    public function is(): bool
-    {
-        return $this->getValue();
-    }
 }

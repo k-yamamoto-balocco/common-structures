@@ -30,7 +30,7 @@ use GitBalocco\CommonStructures\Value\Primitive\BoolValue;
 /**
  * @method bool[] toArray()
  */
-class BoolValueCollection extends AbstractValueCollection implements ValueCollectionInterface
+class BoolValueCollection extends PrimitiveValueCollection implements ValueCollectionInterface
 {
     protected static function valueClass(): string
     {

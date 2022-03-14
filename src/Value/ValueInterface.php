@@ -26,12 +26,6 @@ namespace GitBalocco\CommonStructures\Value;
 interface ValueInterface
 {
     /**
-     * @psalm-suppress MissingParamType
-     * @param $valueCandidate
-     */
-    public function __construct($valueCandidate);
-
-    /**
      * getValue
      * @psalm-suppress MissingReturnType
      * @return mixed

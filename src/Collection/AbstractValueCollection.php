@@ -24,17 +24,15 @@
 namespace GitBalocco\CommonStructures\Collection;
 
 use Generator;
-use GitBalocco\CommonStructures\Value\ValueInterface;
+use GitBalocco\CommonStructures\Collection\Exception\InvalidItemTypeException;
+
 
 abstract class AbstractValueCollection implements ValueCollectionInterface
 {
-    private array $collection = [];
+    protected array $collection = [];
 
     public function __construct(array $items = [])
     {
-        if (!is_subclass_of($this->valueClass(), ValueInterface::class)) {
-            throw new \LogicException();
-        }
         $this->addArray($items);
     }
 
@@ -49,8 +47,10 @@ abstract class AbstractValueCollection implements ValueCollectionInterface
      */
     public function add($item): ValueCollectionInterface
     {
-        $valueClassName = $this->valueClass();
-        $this->collection[] = new $valueClassName($item);
+        if(!is_a($item,$this->valueClass())){
+            throw new InvalidItemTypeException($item, $this->valueClass());
+        }
+        $this->collection[] = $item;
         return $this;
     }
 
@@ -66,8 +66,10 @@ abstract class AbstractValueCollection implements ValueCollectionInterface
      */
     public function put($key, $item): ValueCollectionInterface
     {
-        $valueClassName = $this->valueClass();
-        $this->collection[$key] = new $valueClassName($item);
+        if(!is_a($item,$this->valueClass())){
+            throw new InvalidItemTypeException($item,$this->valueClass());
+        }
+        $this->collection[$key] = $item;
         return $this;
     }
 
@@ -98,9 +100,8 @@ abstract class AbstractValueCollection implements ValueCollectionInterface
     public function toArray(): array
     {
         $tmp = [];
-        /** @var ValueInterface $item */
         foreach ($this->collection as $key => $item) {
-            $tmp[$key] = $item->getValue();
+            $tmp[$key] = $item;
         }
         return $tmp;
     }

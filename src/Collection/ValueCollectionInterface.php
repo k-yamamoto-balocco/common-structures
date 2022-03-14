@@ -43,4 +43,12 @@ interface ValueCollectionInterface extends IteratorAggregate
      * @author kenji yamamoto <k.yamamoto@balocco.info>
      */
     public function toArray();
+
+    public function put($key, $item): ValueCollectionInterface;
+
+    public function addArray(array $items): ValueCollectionInterface;
+
+    public function putArray(array $items): ValueCollectionInterface;
+
+    public function count(): int;
 }

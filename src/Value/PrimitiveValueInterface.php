@@ -21,24 +21,13 @@
  * © Balocco Inc. All Rights Reserved.
  */
 
-namespace GitBalocco\CommonStructures\Value\Primitive;
+namespace GitBalocco\CommonStructures\Value;
 
-use GitBalocco\CommonStructures\Value\PrimitiveValueInterface;
-use GitBalocco\CommonStructures\Value\Validator\Primitive\BoolValueValidator;
-use GitBalocco\CommonStructures\Value\Value;
-
-/**
- * @method bool getValue()
- */
-class BoolValue extends Value implements PrimitiveValueInterface
+interface PrimitiveValueInterface extends ValueInterface
 {
-    protected static function validatorClassName(): string
-    {
-        return BoolValueValidator::class;
-    }
-
-    public function is(): bool
-    {
-        return $this->getValue();
-    }
+    /**
+     * @psalm-suppress MissingParamType
+     * @param $valueCandidate
+     */
+    public function __construct($valueCandidate);
 }

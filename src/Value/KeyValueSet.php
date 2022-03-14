@@ -21,24 +21,26 @@
  * © Balocco Inc. All Rights Reserved.
  */
 
-namespace GitBalocco\CommonStructures\Value\Primitive;
-
-use GitBalocco\CommonStructures\Value\PrimitiveValueInterface;
-use GitBalocco\CommonStructures\Value\Validator\Primitive\BoolValueValidator;
-use GitBalocco\CommonStructures\Value\Value;
+namespace GitBalocco\CommonStructures\Value;
 
 /**
- * @method bool getValue()
+ * KeyValue
+ *
+ * @package GitBalocco\CommonStructures\Value
  */
-class BoolValue extends Value implements PrimitiveValueInterface
+abstract class KeyValueSet extends Value
 {
-    protected static function validatorClassName(): string
+    protected Key $key;
+
+    public function __construct($key, $valueCandidate)
     {
-        return BoolValueValidator::class;
+        $this->key = new Key($key);
+        parent::__construct($valueCandidate);
     }
 
-    public function is(): bool
+    public function toArray(): array
     {
-        return $this->getValue();
+        return [$this->key->getValue() => $this->getValue()];
     }
+
 }

@@ -24,34 +24,47 @@
 namespace GitBalocco\CommonStructures\Collection\Primitive;
 
 use GitBalocco\CommonStructures\Collection\AbstractValueCollection;
+use GitBalocco\CommonStructures\Collection\Exception\NotPrimitiveValueException;
 use GitBalocco\CommonStructures\Collection\ValueCollectionInterface;
-use GitBalocco\CommonStructures\Value\Primitive\CallbackValue;
+use GitBalocco\CommonStructures\Value\PrimitiveValueInterface;
 
 /**
- * @method callback[] toArray()
+ * PrimitiveValueCollection
+ *
+ * @package GitBalocco\CommonStructures\Collection\Primitive
  */
-class CallbackValueCollection extends PrimitiveValueCollection implements ValueCollectionInterface
+abstract class PrimitiveValueCollection extends AbstractValueCollection
 {
-    protected static function valueClass(): string
+    public function __construct(array $items = [])
     {
-        return CallbackValue::class;
+        if (!is_subclass_of($this->valueClass(), PrimitiveValueInterface::class)) {
+            throw new NotPrimitiveValueException($this->valueClass());
+        }
+        parent::__construct($items);
     }
 
-    public function __invoke()
+    public function add($item): ValueCollectionInterface
     {
-        /** @var CallbackValue $callback */
-        foreach ($this->getIterator() as $callback) {
-            $callback->__invoke();
-        }
+        return parent::add($this->createInstanceByPrimitiveVar($item));
     }
 
-    public function getResultAsArray(): array
+    public function put($key, $item): ValueCollectionInterface
     {
-        $results = [];
-        /** @var CallbackValue $callback */
-        foreach ($this->getIterator() as $key => $callback) {
-            $results[$key] = $callback->__invoke();
+        return parent::put($key, $this->createInstanceByPrimitiveVar($item));
+    }
+
+    public function toArray(): array
+    {
+        $tmp = [];
+        foreach ($this->collection as $key => $item) {
+            $tmp[$key] = $item->getValue();
         }
-        return $results;
+        return $tmp;
+    }
+
+    private function createInstanceByPrimitiveVar($item)
+    {
+        $className = $this->valueClass();
+        return new $className($item);
     }
 }

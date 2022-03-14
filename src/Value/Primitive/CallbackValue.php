@@ -23,16 +23,16 @@
 
 namespace GitBalocco\CommonStructures\Value\Primitive;
 
+use GitBalocco\CommonStructures\Value\PrimitiveValueInterface;
 use GitBalocco\CommonStructures\Value\Validator\Primitive\CallbackValueValidator;
 use GitBalocco\CommonStructures\Value\Value;
-use GitBalocco\CommonStructures\Value\ValueInterface;
 
 /**
  * CallbackValue
  * @method callable getValue()
  * @package GitBalocco\CommonStructures\Value\Primitive
  */
-class CallbackValue extends Value implements ValueInterface
+class CallbackValue extends Value implements PrimitiveValueInterface
 {
     private array $arguments = [];
 

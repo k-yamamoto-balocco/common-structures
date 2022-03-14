@@ -24,14 +24,14 @@
 namespace GitBalocco\CommonStructures\Value\Primitive;
 
 use GitBalocco\CommonStructures\Value\Exception\InitializeValueException;
+use GitBalocco\CommonStructures\Value\PrimitiveValueInterface;
 use GitBalocco\CommonStructures\Value\Validator\Primitive\StringValueValidator;
 use GitBalocco\CommonStructures\Value\Value;
-use GitBalocco\CommonStructures\Value\ValueInterface;
 
 /**
  * @method string getValue()
  */
-class StringValue extends Value implements ValueInterface
+class StringValue extends Value implements PrimitiveValueInterface
 {
     /**
      * @psalm-suppress MissingParamType

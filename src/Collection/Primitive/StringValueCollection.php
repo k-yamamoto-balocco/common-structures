@@ -30,7 +30,7 @@ use GitBalocco\CommonStructures\Value\Primitive\StringValue;
 /**
  * @method string[] toArray()
  */
-class StringValueCollection extends AbstractValueCollection implements ValueCollectionInterface
+class StringValueCollection extends PrimitiveValueCollection implements ValueCollectionInterface
 {
     protected static function valueClass(): string
     {
