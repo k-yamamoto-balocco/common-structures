@@ -47,7 +47,7 @@ abstract class AbstractValueCollection implements ValueCollectionInterface
      */
     public function add($item): ValueCollectionInterface
     {
-        if(!is_a($item,$this->valueClass())){
+        if (!is_a($item, $this->valueClass())) {
             throw new InvalidItemTypeException($item, $this->valueClass());
         }
         $this->collection[] = $item;
@@ -66,8 +66,8 @@ abstract class AbstractValueCollection implements ValueCollectionInterface
      */
     public function put($key, $item): ValueCollectionInterface
     {
-        if(!is_a($item,$this->valueClass())){
-            throw new InvalidItemTypeException($item,$this->valueClass());
+        if (!is_a($item, $this->valueClass())) {
+            throw new InvalidItemTypeException($item, $this->valueClass());
         }
         $this->collection[$key] = $item;
         return $this;
@@ -116,5 +116,11 @@ abstract class AbstractValueCollection implements ValueCollectionInterface
     public function count(): int
     {
         return count($this->collection);
+    }
+
+    public function flush(): ValueCollectionInterface
+    {
+        $this->collection = [];
+        return $this;
     }
 }
