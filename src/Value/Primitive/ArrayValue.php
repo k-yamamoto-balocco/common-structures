@@ -24,17 +24,10 @@
 namespace GitBalocco\CommonStructures\Value\Primitive;
 
 use GitBalocco\CommonStructures\Value\PrimitiveValueInterface;
-use GitBalocco\CommonStructures\Value\Validator\Primitive\ArrayValueValidator;
-use GitBalocco\CommonStructures\Value\Value;
 
 /**
- * @method bool getValue()
+ * @method array getValue()
  */
-class ArrayValue extends Value implements PrimitiveValueInterface
+final class ArrayValue extends AbstractArrayValue implements PrimitiveValueInterface
 {
-    protected static function validatorClassName(): string
-    {
-        return ArrayValueValidator::class;
-    }
-
 }

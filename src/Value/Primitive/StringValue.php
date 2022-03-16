@@ -23,15 +23,12 @@
 
 namespace GitBalocco\CommonStructures\Value\Primitive;
 
-use GitBalocco\CommonStructures\Value\Exception\InitializeValueException;
 use GitBalocco\CommonStructures\Value\PrimitiveValueInterface;
-use GitBalocco\CommonStructures\Value\Validator\Primitive\StringValueValidator;
-use GitBalocco\CommonStructures\Value\Value;
 
 /**
  * @method string getValue()
  */
-class StringValue extends Value implements PrimitiveValueInterface
+final class StringValue extends AbstractStringValue implements PrimitiveValueInterface
 {
     /**
      * @psalm-suppress MissingParamType
@@ -45,29 +42,4 @@ class StringValue extends Value implements PrimitiveValueInterface
         parent::__construct($valueCandidate);
     }
 
-
-    protected static function validatorClassName(): string
-    {
-        return StringValueValidator::class;
-    }
-
-    public function __toString(): string
-    {
-        return $this->getValue();
-    }
-
-    /**
-     * castObject
-     * @psalm-suppress MissingParamType
-     * @param $valueCandidateObject
-     * @return string
-     * @author kenji yamamoto <k.yamamoto@balocco.info>
-     */
-    private function castObject($valueCandidateObject): string
-    {
-        if (method_exists($valueCandidateObject, '__toString')) {
-            return (string)$valueCandidateObject;
-        }
-        throw new InitializeValueException(static::class);
-    }
 }

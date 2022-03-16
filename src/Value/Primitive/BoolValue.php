@@ -30,15 +30,7 @@ use GitBalocco\CommonStructures\Value\Value;
 /**
  * @method bool getValue()
  */
-class BoolValue extends Value implements PrimitiveValueInterface
+final class BoolValue extends AbstractBoolValue implements PrimitiveValueInterface
 {
-    protected static function validatorClassName(): string
-    {
-        return BoolValueValidator::class;
-    }
 
-    public function is(): bool
-    {
-        return $this->getValue();
-    }
 }

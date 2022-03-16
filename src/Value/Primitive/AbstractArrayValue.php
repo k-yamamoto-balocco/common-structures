@@ -23,14 +23,19 @@
 
 namespace GitBalocco\CommonStructures\Value\Primitive;
 
-use GitBalocco\CommonStructures\Value\PrimitiveValueInterface;
-use GitBalocco\CommonStructures\Value\Validator\Primitive\CallbackValueValidator;
+use GitBalocco\CommonStructures\Value\Validator\Primitive\ArrayValueValidator;
 use GitBalocco\CommonStructures\Value\Value;
+use GitBalocco\CommonStructures\Value\ValueInterface;
 
 /**
- * @method callable getValue()
+ * 開発者が自由にコンストラクタを定義できる、抽象配列値クラス。
+ * @method array getValue()
  */
-final class CallbackValue extends AbstractCallbackValue implements PrimitiveValueInterface
+abstract class AbstractArrayValue extends Value implements ValueInterface
 {
+    protected static function validatorClassName(): string
+    {
+        return ArrayValueValidator::class;
+    }
 
 }

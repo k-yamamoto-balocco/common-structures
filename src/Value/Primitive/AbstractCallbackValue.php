@@ -23,14 +23,41 @@
 
 namespace GitBalocco\CommonStructures\Value\Primitive;
 
-use GitBalocco\CommonStructures\Value\PrimitiveValueInterface;
 use GitBalocco\CommonStructures\Value\Validator\Primitive\CallbackValueValidator;
 use GitBalocco\CommonStructures\Value\Value;
+use GitBalocco\CommonStructures\Value\ValueInterface;
 
 /**
+ * 開発者が自由にコンストラクタを定義できる、抽象コールバック値クラス。
  * @method callable getValue()
  */
-final class CallbackValue extends AbstractCallbackValue implements PrimitiveValueInterface
+abstract class AbstractCallbackValue extends Value  implements ValueInterface
 {
+    private array $arguments = [];
+
+    protected static function validatorClassName(): string
+    {
+        return CallbackValueValidator::class;
+    }
+
+    /**
+     * __invoke
+     *
+     * @psalm-suppress MissingParamType
+     * @return false|mixed
+     * @author kenji yamamoto <k.yamamoto@balocco.info>
+     */
+    public function __invoke()
+    {
+        return call_user_func_array($this->getValue(), $this->arguments);
+    }
+
+    /**
+     * @param array $arguments
+     */
+    public function setArguments(array $arguments): void
+    {
+        $this->arguments = $arguments;
+    }
 
 }
